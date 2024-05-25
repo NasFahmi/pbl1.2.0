@@ -16,7 +16,6 @@
     },
     "dependencies": {
         "@dasundev/livewire-dropzone-styles": "^1.0.7",
-        "alpinejs": "^3.13.7",
         "flatpickr": "^4.6.13",
         "flowbite": "^2.3.0"
     }

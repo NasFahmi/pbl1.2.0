@@ -17,7 +17,7 @@
 
     @include('partials.dashboard.link')
     @extends('partials.dashboard.head')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet" />
@@ -41,22 +41,25 @@
             /* Set the color of the track (the non-draggable part) */
         }
     </style>
+    @livewireStyles()
 </head>
 
 <body>
-    <div class="flex w-screen h-screen bg-gray-100 " :class="{ 'overflow-hidden': isSideMenuOpen }">
+
+    <div class="flex w-screen h-screen bg-gray-100 " x-data="{ isSideMenuOpen: false }">
         {{-- @include('partials.sidenav') --}}
         @include('partials.dashboard.sidenav')
         <div class="flex flex-col flex-1 w-full">
-         @include('partials.dashboard.header')
+            @include('partials.dashboard.header')
             {{-- @include('partials.header') --}}
             <main class="h-full overflow-y-auto">
-                {{$slot}}
+                {{ $slot }}
             </main>
         </div>
     </div>
     @extends('partials.dashboard.link')
     {{-- @extends('partials.link') --}}
+    @livewireScripts()
 </body>
 
 </html>

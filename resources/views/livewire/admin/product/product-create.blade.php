@@ -13,7 +13,7 @@
                             </label>
                             <input type="text" placeholder="nama product" name="nama_product"
                                 value="{{ old('nama_product') }}"
-                                class="input input-bordered input-info bg-slate-50 w-full max-w-4xl duration-50 " />
+                                class="bg-gray-50 border max-w-4xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5 " />
                             @error('nama_product')
                                 <small class="error" style="color: red">{{ $message }}</small>
                             @enderror
@@ -23,21 +23,11 @@
                                 <span class="text-gray-700 dark:text-gray-400">Harga</span>
                             </label>
                             <input type="number" placeholder="Harga" name="harga" value="{{ old('harga') }}"
-                                class="input input-bordered input-info w-full bg-slate-50  duration-50 " />
+                                class="bg-gray-50 border max-w-4xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  " />
                             @error('harga')
                                 <small class="error" style="color: red">{{ $message }}</small>
                             @enderror
 
-                        </div>
-                        <div class="">
-                            <label class="block text-sm mb-1 mt-3">
-                                <span class="text-gray-700 dark:text-gray-400">Deskripsi</span>
-                            </label>
-                            <textarea class="textarea textarea-info w-full max-w-4xl bg-slate-50" placeholder="Deskripsi Product" name="deskripsi"
-                                rows="4">{{ old('deskripsi') }}</textarea>
-                            @error('deskripsi')
-                                <small class="error" style="color: red">{{ $message }}</small>
-                            @enderror
                         </div>
 
 
@@ -49,7 +39,7 @@
                             </label>
                             <input type="text" placeholder="Link Shopee" name="link_shopee"
                                 value="{{ old('link_shopee') }}"
-                                class="input input-bordered input-info w-full max-w-4xl duration-50 bg-slate-50 " />
+                                class="bg-gray-50 border max-w-4xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  " />
                             @error('link_shopee')
                                 <small class="error" style="color: red">{{ $message }}</small>
                             @enderror
@@ -59,23 +49,13 @@
                                 <span class="text-gray-700 dark:text-gray-400">Stok</span>
                             </label>
                             <input type="number" placeholder="Jumlah Stok" name="stok" value="{{ old('stok') }}"
-                                class="input input-bordered input-info w-full max-w-4xl duration-50 bg-slate-50 " />
+                                class="bg-gray-50 border max-w-4xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  " />
                             @error('stok')
                                 <small class="error" style="color: red">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="">
-                            <label class="block text-sm mb-1 mt-3">
-                                <span class="text-gray-700 dark:text-gray-400">Spesifikasi Product</span>
-                            </label>
-                            <textarea class="textarea textarea-info w-full max-w-4xl bg-slate-50" placeholder="Spesifikasi Product"
-                                name="spesifikasi_product" rows="4">{{ old('spesifikasi_product') }}</textarea>
-                            @error('spesifikasi_product')
-                                <small class="error" style="color: red">{{ $message }}</small>
-                            @enderror
-                        </div>
 
-                        <div class="">
+                        {{-- <div class="">
                             <label class="block text-sm mb-1">
                                 <span class="text-gray-700 dark:text-gray-400">Varian Product</span>
                             </label>
@@ -85,15 +65,37 @@
                             <div class="form-group flex justify-center items-center gap-2">
 
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <button type="button" onclick="addInput()" class="text-green-400">Tambah Varian</button>
+                        {{-- <button type="button" onclick="addInput()" class="text-green-400">Tambah Varian</button> --}}
                     </div>
+
+                </div>
+                <div class="">
+                    <label class="block text-sm mb-1 mt-3">
+                        <span class="text-gray-700 dark:text-gray-400">Deskripsi Product</span>
+                    </label>
+
+                    <textarea id='deskripsi' name="deskripsi" class="tinymce-editor">{{ old('deskripsi') }}</textarea>
+                    @error('deskripsi')
+                        <small class="error" style="color: red">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="">
+                    <label class="block text-sm mb-1 mt-3">
+                        <span class="text-gray-700 dark:text-gray-400">Spesifikasi Product</span>
+                    </label>
+                    <textarea id='spesifikasi' name="spesifikasi" class="tinymce-editor">{{ old('spesifikasi') }}</textarea>
+                    @error('spesifikasi')
+                        <small class="error" style="color: red">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class=" mt-4">
-                    <label for="images" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
-                    <input type="file" class="border border-gray-300 px-4 py-2 w-full" id="images" name="images[]"
-                        multiple>
+                    <label for="image" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
+
+                    <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :multiple="true" />
+
+
 
                     @error('image')
                         <small class="error" style="color: red">{{ $message }}</small>
@@ -122,4 +124,19 @@
             </form>
         </div>
     </div>
+    <script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#deskripsi', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table'
+        });
+
+        tinymce.init({
+            selector: 'textarea#spesifikasi', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table'
+        });
+    </script>
+
 </div>

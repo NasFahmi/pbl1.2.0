@@ -83,8 +83,8 @@
     x-transition:enter="transition ease-in-out duration-150"
     x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
     x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
-    @keydown.escape="closeSideMenu">
+    x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="isSideMenuOpen = false"
+    @keydown.escape="isSideMenuOpen = false">
     <div class="py-4 text-gray-500">
         <div class="flex items-center justify-start">
             <a href="" class="ml-6">
