@@ -14,8 +14,7 @@
     </style>
 
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
-    {{-- @include('partials.link')
-    @extends('partials.head') --}}
+
     @include('partials.dashboard.link')
     @extends('partials.dashboard.head')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -45,7 +44,7 @@
 </head>
 
 <body>
-    <div class="flex  h-screen w-screen bg-gray-100 " :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex w-screen h-screen bg-gray-100 " :class="{ 'overflow-hidden': isSideMenuOpen }">
         {{-- @include('partials.sidenav') --}}
         @include('partials.dashboard.sidenav')
         <div class="flex flex-col flex-1 w-full">
