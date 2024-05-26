@@ -1,6 +1,7 @@
 <div>
     <div class="container  px-6 pb-6 mx-auto">
-        <h1 class="text-2xl my-6 font-semibold text-gray-700 ">Create Product</h1>
+        <x-beardcumb menu='product' submenu='create' routemenu='' />
+        <h1 class="text-2xl font-semibold text-gray-700 mb-6">Create Product</h1>
         <div class="bg-white  px-8 py-8 shadow-lg rounded-3xl">
 
             <form action="" class="" enctype="multipart/form-data">
@@ -94,8 +95,6 @@
                     <label for="image" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
 
                     <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :multiple="true" />
-
-
 
                     @error('image')
                         <small class="error" style="color: red">{{ $message }}</small>
