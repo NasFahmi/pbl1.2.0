@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': light }" data-theme="light" x-data="data()" lang="en">
+<html x-data="{ theme: 'light' }" x-bind:class="theme" lang="en">
 
-<head>
+<head class='dark'>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $title ?? 'Admin Pawonkoe' }}</title>
     <style>
+        @layer base {
+            html {
+                color-scheme: light !important;
+            }
+        }
+
         .cover-image {
             object-fit: cover;
             width: 100%;
@@ -16,11 +22,13 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
 
     @include('partials.dashboard.link')
-    @extends('partials.dashboard.head')
-    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet" />
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <style>
         /* Add this in your CSS or within a style tag in your HTML */
@@ -46,7 +54,7 @@
 
 <body>
 
-    <div class="flex w-screen h-screen bg-gray-100 " x-data="{ isSideMenuOpen: false }">
+    <div class="flex w-screen h-screen bg-gray-100 " x-on:DOMContentLoaded="theme = 'light'" x-data="{ isSideMenuOpen: false, theme: 'light' }">
         {{-- @include('partials.sidenav') --}}
         @include('partials.dashboard.sidenav')
         <div class="flex flex-col flex-1 w-full">
@@ -60,6 +68,9 @@
     @extends('partials.dashboard.link')
     {{-- @extends('partials.link') --}}
     @livewireScripts()
+    <script>
+        localStorage.theme = 'light'
+    </script>
 </body>
 
 </html>

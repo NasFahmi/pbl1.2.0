@@ -13,6 +13,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('product', App\Livewire\Admin\Product\Product::class)->name('admin.product');
     Route::get('product/create', App\Livewire\Admin\Product\ProductCreate::class)->name('admin.product.create');
+    Route::get('product/{id}', App\Livewire\Admin\Product\ProductDetail::class)->name('admin.product.detail');
     
     Route::get('produksi', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.produksi');
 

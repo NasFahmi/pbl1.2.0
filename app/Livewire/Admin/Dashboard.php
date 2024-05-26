@@ -10,8 +10,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 #[Layout('components/layouts/admin')]
+#[Title('Dashboard')]
 class Dashboard extends Component
 
 {

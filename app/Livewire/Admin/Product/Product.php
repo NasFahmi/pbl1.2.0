@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Admin\Product;
 
-use App\Models\Product as ProductData;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use App\Models\Product as ProductData;
 #[Layout('components/layouts/admin')]
+#[Title('Product')]
 class Product extends Component
 {
     use WithPagination;
