@@ -65,22 +65,27 @@
                     <label class="block text-sm mb-1 mt-3">
                         <span class="text-gray-700 dark:text-gray-400">Deskripsi Product</span>
                     </label>
-                    <div wire:ignore>
+                    <div class="" wire:ignore>
                         <textarea id='deskripsi' class="deskripsi" wire:model="deskripsi">
                             {{ $deskripsi }}
                         </textarea>
                     </div>
+                    @error('deskripsi')
+                        <small class="error" style="color: red">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="">
                     <label class="block text-sm mb-1 mt-3">
                         <span class="text-gray-700 dark:text-gray-400">Spesifikasi Product</span>
                     </label>
-                    <div wire:ignore>
+                    <div class="" wire:ignore>
                         <textarea id='spesifikasi' class="spesifikasi" wire:model="spesifikasi">
                             {{ $spesifikasi }}
                         </textarea>
                     </div>
-
+                    @error('spesifikasi')
+                        <small class="error" style="color: red">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class=" mt-4">
                     <label for="image" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
@@ -114,44 +119,28 @@
             </form>
         </div>
     </div>
+    <script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
-        $('#deskripsi').summernote({
-            callbacks: {
-                onChange: function(contents, $editable) {
-                    @this.set('deskripsi', contents)
-                    // console.log('onChange:', contents, $editable);
-                }
-            },
-            placeholder: 'Buat Deskripsi Product',
-            tabsize: 2,
-            height: 120,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link']],
-                ['view', ['help']]
-            ]
+        tinymce.init({
+            selector: 'textarea#deskripsi', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table',
+            setup: function(editor) {
+                editor.on('change', function(e) {
+                    console.log(editor.getContent())
+                });
+            }
         });
-        $('#spesifikasi').summernote({
-            callbacks: {
-                onChange: function(contents, $editable) {
-                    @this.set('spesifikasi', contents)
-                    // console.log('onChange:', contents, $editable);
-                }
-            },
-            placeholder: 'Buat Spesifikasi Product',
-            tabsize: 2,
-            height: 120,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link']],
-                ['view', ['help']]
-            ]
+
+        tinymce.init({
+            selector: 'textarea#spesifikasi', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | table',
+            setup: function(editor) {
+                editor.on('change', function(e) {
+                    @this.set('spesifikasi', editor.getContent());
+                });
+            }
         });
     </script>
 
