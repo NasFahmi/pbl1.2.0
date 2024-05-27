@@ -16,23 +16,33 @@ class Product extends Component
     use WithPagination;
 
     public $search = '';
+    public $showDeletedData;
+
+    public function mount()
+    {
+        $this->showDeletedData = false; // Atau false, tergantung kebutuhan Anda
+    }
 
     public function render()
     {
-        $data = ProductData::with(['fotos'])
-            ->search($this->search)
-            ->where('tersedia', 1)
-            ->paginate(12);
-
-        $totalProduct = ProductData::where('tersedia', 1)->sum('tersedia');
-
+        if ($this->showDeletedData) {
+            $data = ProductData::onlyTrashed()->with(['fotos'])->paginate(12);
+        } else {
+            $data = ProductData::with(['fotos'])
+                ->search($this->search)
+                ->paginate(12);
+        }
+        $totalProduct = ProductData::count();
+        // dd($totalProduct);
         return view('livewire.admin.product.product', compact('data', 'totalProduct'));
     }
     #[On('deleteProduct')]
     public function deleteProduct($idProduct)
     {
-        $product = Product::findOrFail($idProduct);
-
+        $product = ProductData::findOrFail($idProduct);
+        $product->update([
+            'tersedia' => '0'
+        ]);
         // Hapus produk
         $product->delete();
 

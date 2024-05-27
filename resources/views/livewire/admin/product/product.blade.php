@@ -2,6 +2,9 @@
     @if ($data->isEmpty())
         <div class="container  px-6 pb-6 mx-auto">
             <h1 class="text-2xl my-6 font-semibold text-gray-700 ">Product</h1>
+            <button wire:click="$toggle('showDeletedData')">
+                {{ $showDeletedData ? 'Show Active Products' : 'Show Deleted Products' }}
+            </button>
             <div class="flex justify-center items-center gap-2 md:gap-4 flex-col-reverse md:flex-row mb-4">
                 <form class="w-full" method="GET" action="">
                     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
@@ -34,6 +37,9 @@
         @else
             <div class="container  px-6 pb-6 mx-auto">
                 <h1 class="text-2xl my-6 font-semibold text-gray-700 ">Product</h1>
+                <button wire:click="$toggle('showDeletedData')">
+                    {{ $showDeletedData ? 'Show Active Products' : 'Show Deleted Products' }}
+                </button>
                 <div class="flex justify-center items-center gap-2 md:gap-4 flex-col-reverse md:flex-row mb-4">
                     <form class="w-full" method="GET" action="">
                         <label for="default-search"
