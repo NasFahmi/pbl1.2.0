@@ -1,10 +1,13 @@
 <div>
     <div class="container  px-6 pb-6 mx-auto">
+
+        <button onclick="deleteImage()">KLIK</button>
+
         <x-beardcumb menu='product' submenu='create' routemenu='admin.product' />
         <h1 class="text-2xl font-semibold text-gray-700 mb-6">Create Product</h1>
         <div class="bg-white  px-8 py-8 shadow-lg rounded-3xl">
 
-            <form wire:submit.prevent="store">
+            <form wire:submit.prevent="update">
                 @csrf
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
                     <div class="left">
@@ -61,6 +64,18 @@
                     </div>
 
                 </div>
+                <div>
+                    <label class="block  text-sm text-gray-700 mt-3">Ketersediaan Produk</label>
+                    <div class="mt-2">
+                        @foreach (['1' => 'Tersedia', '0' => 'Tidak Tersedia'] as $value => $label)
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio" wire:model="tersedia"
+                                    value="{{ $value }}">
+                                <span class="ml-2">{{ $label }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
                 <div class="">
                     <label class="block text-sm mb-1 mt-3">
                         <span class="text-gray-700 dark:text-gray-400">Deskripsi Product</span>
@@ -87,10 +102,29 @@
                         <small class="error" style="color: red">{{ $message }}</small>
                     @enderror
                 </div>
+
                 <div class=" mt-4">
+                    <p class="text-gray-700 font-semibold text-left  mb-2">Gambar lama</p>
+                    <div class="flex justify-start items-center gap-4">
+                        @if (!empty($existingImages))
+                            @foreach ($existingImages as $image)
+                                <div
+                                    class="flex items-center justify-center font-medium text-gray-900 whitespace-nowrap flex-col">
+                                    <img class="w-36 h-36 rounded-xl" src="{{ $image['temporaryUrl'] }}"
+                                        alt="{{ $image['name'] }}">
+                                    <button onclick="deleteImage({{ $image['id'] }})"
+                                        class="text-red-500 hover:text-red-700">
+                                        Delete
+                                    </button>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No existing images found.</p>
+                        @endif
+                    </div>
                     <label for="image" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
 
-                    <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :existingImages="{{ $existingImages }}":multiple="true" />
+                    <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :multiple="true" />
 
                     @error('image')
                         <small class="error" style="color: red">{{ $message }}</small>
@@ -111,6 +145,30 @@
     </div>
     <script src="{{ asset('assets/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
+        function deleteImage($id) {
+            Swal.fire({
+                title: "Apakah yakin ingin menghapus gambar?",
+                text: "Gambar bisa diupload ulang,",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Gambar berhasil dihapus",
+                        icon: "success"
+                    });
+
+                    Livewire.dispatch('deleteImage', {
+                        idGambar: $id
+                    });
+                }
+            });
+
+        }
         tinymce.init({
             selector: 'textarea#deskripsi', // Replace this CSS selector to match the placeholder element for TinyMCE
             plugins: 'code table lists',

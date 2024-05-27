@@ -155,8 +155,8 @@
                                                 @if (auth()->check() && (auth()->user()->hasRole('superadmin') || auth()->user()->can('edit-product')))
                                                     <a href="{{ route('admin.product.edit', $items->id) }}"
                                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                                    <a href="#"
-                                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                                                    <button onclick="deleteProduct({{ $items->id }})"
+                                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
                                                 @endif
                                             </div>
                                         </td>
@@ -179,4 +179,30 @@
                 </div>
             @endif
     @endif
+    <script>
+        function deleteProduct($id) {
+            Swal.fire({
+                title: "Apakah yakin ingin menghapus Product?",
+                text: "tidak ada kata kata, yang ada hanyalah bukti nyata",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Product berhasil dihapus",
+                        icon: "success"
+                    });
+
+                    Livewire.dispatch('deleteProduct', {
+                        idProduct: $id
+                    });
+                }
+            });
+
+        }
+    </script>
 </div>
