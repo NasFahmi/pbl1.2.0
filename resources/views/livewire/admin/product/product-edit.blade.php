@@ -90,7 +90,7 @@
                 <div class=" mt-4">
                     <label for="image" class="text-gray-700 font-semibold text-left  mb-2">Pilih Gambar</label>
 
-                    <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :multiple="true" />
+                    <livewire:dropzone wire:model="image" :rules="['image', 'mimes:png,jpeg,jpg']" :existingImages="{{ $existingImages }}":multiple="true" />
 
                     @error('image')
                         <small class="error" style="color: red">{{ $message }}</small>

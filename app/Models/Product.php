@@ -23,10 +23,6 @@ class Product extends Model
         return $this->hasMany(Foto::class);
     }
 
-    public function varians()
-    {
-        return $this->hasMany(Varian::class);
-    }
 
     public function transaksis()
     {

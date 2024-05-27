@@ -59,35 +59,113 @@
                         </div>
                     </form>
 
-                    <a href="{{ route('products.create') }}"
+                    <a href="{{ route('admin.product.create') }}"
                         class="text-center focus:outline-none text-white w-full md:w-fit bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-3 me-2 mb duration-300 whitespace-nowrap">
                         Add Product
                     </a>
                 </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 justify-center items-center gap-4">
-                    @foreach ($data as $items)
-                        @if ($items->tersedia == 1)
-                            <div class="card card-compact w-full md:w-60 h-96  bg-base-100 shadow-xl">
-                                <figure class="w-full h-96">
-                                    <img src="{{ asset($items->fotos->first()->foto) }}" alt="PRODUCT"
-                                        class="h-auto w-full" />
-                                </figure>
-                                <div class="card-body">
-                                    <h2 class="card-title line-clamp-1">{{ $items->nama_product }}</h2>
-                                    <p class="line-clamp-2">{{ $items->deskripsi }}</p>
-                                    <div
-                                        class="flex justify-between items-start md:items-center flex-col md:flex-row md:mt-4">
-                                        <p class="text-start text-lg font-semibold mb-2 md:mb-0">Rp.
-                                            {{ number_format($items->harga, 0, ',', '.') }}</p>
-                                        <div class="card-actions justify-end w-full md:w-auto">
-                                            <a href="{{ route('products.detail', $items->id) }}"
-                                                class="btn btn-primary w-full md:w-auto">Details</a>
+                <div class="w-full">
+
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="p-4">
+                                        <div class="flex items-center">
+                                            <input id="checkbox-all-search" type="checkbox"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Gambar Product
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nama Product
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Harga
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Stok
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="text-center px-6 py-3">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($data as $items)
+                                    <tr
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="w-4 p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-table-search-1" type="checkbox"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                            </div>
+                                        </td>
+                                        <th scope="row"
+                                            class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <img class="w-12 h-12 rounded-xl"
+                                                src="{{ asset($items->fotos->first()->foto) }}" alt="PRODUCT">
+                                        </th>
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <p>{{ $items->nama_product }}</p>
+
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            <p class="text-gray-900">{{ $items->harga }}</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-gray-900">{{ $items->stok }}</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @if ($items->tersedia == 1)
+                                                <div class="flex items-center">
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
+                                                    <p class="text-green-500">Tersedia</p>
+
+                                                </div>
+                                            @else
+                                                <div class="flex items-center">
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 me-2">
+                                                        <p class="text-red-500">Tidak Tersedia</p>
+                                                    </div>
+
+                                                </div>
+                                            @endif
+                                        </td>
+                                        {{-- <td class="px-6 py-4">
+                                            <div class="flex justify-center items-center">
+                                                <a href="#"
+                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                            </div>
+                                        </td> --}}
+                                        <td class="px-6 py-4 ">
+                                            <div class="flex justify-center items-center gap-2">
+                                                <a href="{{ route('admin.product.detail', $items->id) }}"
+                                                    class="font-medium text-slate-900 dark:text-slate-900 hover:underline">Detail</a>
+                                                @if (auth()->check() && (auth()->user()->hasRole('superadmin') || auth()->user()->can('edit-product')))
+                                                    <a href="{{ route('admin.product.edit', $items->id) }}"
+                                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                    <a href="#"
+                                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
             @if ($totalProduct > 12)

@@ -2,12 +2,17 @@
 
 namespace App\Livewire\Admin\Product;
 
-use Illuminate\Contracts\Support\ValidatedData;
+use App\Models\Foto;
+use App\Models\Product;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Support\ValidatedData;
 
 #[Layout('components/layouts/admin')]
 #[Title('Create Product')]
@@ -41,31 +46,54 @@ class ProductCreate extends Component
     {
         return view('livewire.admin.product.product-create');
     }
+
     public function store()
     {
-        // dd('test');
+
         $validatedData = $this->validate();
-        dd($this->spesifikasi);
+
+        $slug = Str::of($validatedData['nama_product'])->slug('-')->__toString();
         try {
+            DB::beginTransaction();
             $product = Product::create([
                 'nama_product' => $validatedData['nama_product'],
                 'harga' => $validatedData['harga'],
-                'deskripsi' => $validatedData['deskripsi'],
+                'slug' => $slug,
+                'deskripsi' => $this->deskripsi,
                 'link_shopee' => $validatedData['link_shopee'],
                 'stok' => $validatedData['stok'],
-                'spesifikasi_product' => $validatedData['spesifikasi'],
+                'spesifikasi_product' => $this->spesifikasi,
+                'tersedia' => '1',
             ]);
-    
-            if ($this->image) {
-                $imagePath = $this->image->store('product_images', 'public');
-                $product->image()->create([
-                    'path' => $imagePath,
+
+            $productId = $product->id;
+
+            foreach ($validatedData['image'] as $image) {
+
+                $slugFolderPath = 'public/images/product/' . $slug;
+                if (!Storage::exists($slugFolderPath)) {
+                    Storage::makeDirectory($slugFolderPath);
+                    // Mengatur izin folder
+                    $folderPermissions = 0755; // Atur izin sesuai kebutuhan Anda
+                    chmod(storage_path('app/' . $slugFolderPath), $folderPermissions);
+                }
+
+                $sourcesPath = 'livewire-tmp/' . $image['tmpFilename'];
+
+                $destinationPath = 'public/images/product/' . $slug . '/' . $image['tmpFilename'];
+                Storage::copy($sourcesPath, $destinationPath);
+
+                Foto::Create([ //! hanya bekerja di store, namun tidak bekerja di update
+                    'foto' => '/storage/images/product/' . $slug . '/' . $image['tmpFilename'],
+                    'product_id' => $productId,
                 ]);
             }
-    
             $this->resetInputFields();
-            session()->flash('message', 'Produk berhasil disimpan.');
+            DB::commit();
+            return redirect()->route('admin.product')->with('success', 'Data Berhasil Disimpan');
+            // session()->flash('message', 'Produk berhasil disimpan.');
         } catch (\Exception $e) {
+            DB::rollBack();
             session()->flash('error', 'Terjadi kesalahan saat menyimpan produk.');
         }
     }

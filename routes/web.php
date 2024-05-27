@@ -1,33 +1,51 @@
 <?php
 
-use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', Login::class)->name('login');
-Route::prefix('admin')->group(function () {
-    Route::get('dashboard', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+Route::get('/login', App\Livewire\Auth\Login::class)->name('login');
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::middleware(['role:superadmin|admin'])->group(function () {
+        Route::get('dashboard', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+    });
+    Route::middleware(['role:superadmin|admin'])->group(function () {
+        Route::get('product', App\Livewire\Admin\Product\Product::class)->name('admin.product');
+        Route::get('product/create', App\Livewire\Admin\Product\ProductCreate::class)->name('admin.product.create');
+        Route::get('product/{id}', App\Livewire\Admin\Product\ProductDetail::class)->name('admin.product.detail');
+    });
+    Route::middleware(['role:superadmin', 'permission:edit-product|hapus-product'])->group(function () {
+        Route::get('product/{id}/edit', App\Livewire\Admin\Product\ProductEdit::class)->name('admin.product.edit');
+    });
+    Route::middleware(['role:superadmin|admin'])->group(function () {
+        Route::get('produksi', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.produksi');
+    });
 
-    Route::get('product', App\Livewire\Admin\Product\Product::class)->name('admin.product');
-    Route::get('product/create', App\Livewire\Admin\Product\ProductCreate::class)->name('admin.product.create');
-    Route::get('product/{id}', App\Livewire\Admin\Product\ProductDetail::class)->name('admin.product.detail');
-    
-    Route::get('produksi', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.produksi');
+    Route::middleware(['role:superadmin|admin'])->group(function () {
+        Route::get('transaksi', App\Livewire\Admin\Product\Product::class)->name('admin.transaksi');
+    });
 
-    Route::get('transaksi', App\Livewire\Admin\Product\Product::class)->name('admin.transaksi');
-    Route::get('preorder', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.preorder');
-    Route::get('hutang', App\Livewire\Admin\Product\Product::class)->name('admin.hutang');
-    Route::get('piutang', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.piutang');
-
-    Route::get('beban-kewajiban', App\Livewire\Admin\Product\Product::class)->name('admin.beban-kewajiban');
-    Route::get('modal', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.modal');
-    Route::get('log-activitas', App\Livewire\Admin\Product\Product::class)->name('admin.log-activitas');
-
- });
-Route::get('/test', function(){
+    Route::middleware(['role:superadmin|admin'])->group(function () {
+        Route::get('preorder', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.preorder');
+    });
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('hutang', App\Livewire\Admin\Product\Product::class)->name('admin.hutang');
+    });
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('piutang', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.piutang');
+    });
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('beban-kewajiban', App\Livewire\Admin\Product\Product::class)->name('admin.beban-kewajiban');
+    });
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('modal', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.modal');
+    });
+    Route::middleware(['role:superadmin'])->group(function () {
+        Route::get('log-activitas', App\Livewire\Admin\Product\Product::class)->name('admin.log-activitas');
+    });
+});
+Route::get('/test', function () {
     return view('test');
 })->name('test');
-

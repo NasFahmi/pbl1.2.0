@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use App\Models\Product as ProductData;
+
 #[Layout('components/layouts/admin')]
 #[Title('Product')]
 class Product extends Component
@@ -17,7 +18,7 @@ class Product extends Component
 
     public function render()
     {
-        $data = ProductData::with(['fotos', 'varians'])
+        $data = ProductData::with(['fotos'])
             ->search($this->search)
             ->where('tersedia', 1)
             ->paginate(12);

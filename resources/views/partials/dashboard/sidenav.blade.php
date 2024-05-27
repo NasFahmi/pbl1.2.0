@@ -44,32 +44,30 @@
                 @endif
 
             </x-sidebar-link-group>
+            @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                <x-sidebar-link-group label="Perusahaan">
 
-            <x-sidebar-link-group label="Perusahaan">
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/beban-kewajiban*') }}"
+                            route="admin.beban-kewajiban" icon="assets/icon/calculator-bill.png"
+                            label="Beban Kewajiban" />
+                    @endif
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/modal*') }}" route="admin.modal"
+                            icon="assets/icon/top-up.png" label="Modal" />
+                    @endif
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/log-activitas*') }}" route="admin.log-activitas"
+                            icon="assets/icon/wall-clock.png" label="Log Aktivitas" />
+                    @endif
 
-                @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                    <x-sidebar-link active="{{ Request::is('admin/beban-kewajiban*') }}" route="admin.beban-kewajiban"
-                        icon="assets/icon/calculator-bill.png" label="Beban Kewajiban" />
-                @endif
 
-                @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                    <x-sidebar-link active="{{ Request::is('admin/log-activities*') }}" route="admin.log-activities"
-                        icon="assets/icon/wall-clock.png" label="Log Aktivitas" />
-                @endif
 
-                @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                    <x-sidebar-link active="{{ Request::is('admin/modal*') }}" route="admin.modal"
-                        icon="assets/icon/top-up.png" label="Modal" />
-                @endif
-
-            </x-sidebar-link-group>
-
+                </x-sidebar-link-group>
+            @endif
 
         </ul>
 
-    </div>
-    <div class="absolute flex items-center justify-center w-full mb-4 bottom-1">
-        <p class="text-gray-700">{{ env('APP_VERSION') }}</p>
     </div>
 </aside>
 <!-- Mobile sidebar -->
@@ -115,34 +113,29 @@
                 icon="assets/icon/shipping-timed.png" label="Preorder" />
 
             @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                <x-sidebar-link active="{{ Request::is('admin/piutang*') }}" route="admin.piutang"
-                    icon="assets/icon/sack-dollar.png" label="Piutang" />
-            @endif
+                <x-sidebar-link-group label="Perusahaan">
 
-            @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                <x-sidebar-link active="{{ Request::is('admin/hutang*') }}" route="admin.hutang"
-                    icon="assets/icon/debt.png" label="Hutang" />
-            @endif
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/beban-kewajiban*') }}"
+                            route="admin.beban-kewajiban" icon="assets/icon/calculator-bill.png"
+                            label="Beban Kewajiban" />
+                    @endif
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/modal*') }}" route="admin.modal"
+                            icon="assets/icon/top-up.png" label="Modal" />
+                    @endif
+                    @if (auth()->check() && auth()->user()->hasRole('superadmin'))
+                        <x-sidebar-link active="{{ Request::is('admin/log-activitas*') }}"
+                            route="admin.log-activitas" icon="assets/icon/wall-clock.png" label="Log Aktivitas" />
+                    @endif
 
-            @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                <x-sidebar-link active="{{ Request::is('admin/beban-kewajiban*') }}" route="admin.beban-kewajiban"
-                    icon="assets/icon/calculator-bill.png" label="Beban Kewajiban" />
-            @endif
 
-            @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                <x-sidebar-link active="{{ Request::is('admin/log-activities*') }}" route="admin.log-activities"
-                    icon="assets/icon/wall-clock.png" label="Log Aktivitas" />
-            @endif
 
-            @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                <x-sidebar-link active="{{ Request::is('admin/modal*') }}" route="admin.modal"
-                    icon="assets/icon/top-up.png" label="Modal" />
+                </x-sidebar-link-group>
             @endif
 
 
         </ul>
     </div>
-    <div class="absolute flex items-center justify-center w-full mb-4 bottom-1">
-        <p class="text-gray-700">{{ env('APP_VERSION') }}</p>
-    </div>
+
 </aside>

@@ -4,7 +4,7 @@
      <nav>
          <ol class="flex items-center gap-2">
              <li>
-                 <a wire:navigate class="font-medium" href="{{ $routemenu }}">{{ $menu }} /</a>
+                 <a wire:navigate class="font-medium" href="{{ route($routemenu) }}">{{ $menu }} /</a>
              </li>
              <li class="text-primary">{{ $submenu }}</li>
          </ol>

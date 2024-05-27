@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': light }" data-theme="light" x-data="data()" lang="en">
+<html x-data="{ theme: 'light' }" x-bind:class="theme" lang="en">
 
-<head>
+<head class='dark'>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $title ?? 'Admin Pawonkoe' }}</title>
+    <title>{{ $title ?? 'Login' }}</title>
     <style>
+        @layer base {
+            html {
+                color-scheme: light !important;
+            }
+        }
+
         .cover-image {
             object-fit: cover;
             width: 100%;
@@ -14,12 +20,11 @@
     </style>
 
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
-    @include('partials.link')
-    @extends('partials.head')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-        rel="stylesheet" />
+
+    @include('partials.dashboard.link')
+    {{-- jquery --}}
+
+
 
     <style>
         /* Add this in your CSS or within a style tag in your HTML */
@@ -40,12 +45,22 @@
             /* Set the color of the track (the non-draggable part) */
         }
     </style>
+    @livewireStyles()
 </head>
 
 <body>
-    <div class="flex h-screen w-screen bg-gray-100 " :class="{ 'overflow-hidden': isSideMenuOpen }">
-      {{$slot}}
+
+    <div class="w-screen h-screen bg-gray-100 " x-on:DOMContentLoaded="theme = 'light'" x-data="{ isSideMenuOpen: false, theme: 'light' }">
+        <main class="h-full overflow-y-auto">
+            {{ $slot }}
+        </main>
     </div>
+    @extends('partials.dashboard.link')
+    {{-- @extends('partials.link') --}}
+    @livewireScripts()
+    <script>
+        localStorage.theme = 'light'
+    </script>
 </body>
 
 </html>
