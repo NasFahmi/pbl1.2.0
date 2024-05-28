@@ -99,6 +99,12 @@ class ProductEdit extends Component
             }
 
             $this->resetInputFields();
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($product)
+                ->event('update_product')
+                ->withProperties(['data' => $product])
+                ->log('User ' . auth()->user()->nama . ' update a product ');
             DB::commit();
             return redirect()->route('admin.product')->with('success', 'Data Berhasil Diperbarui');
         } catch (\Exception $e) {

@@ -41,15 +41,15 @@ class ProduksiCreate extends Component
                 'tanggal' => $validatedData['tanggal'],
             ]);
 
-            // activity()
-            //     ->causedBy(auth()->user())
-            //     ->performedOn($produksi)
-            //     ->event('add_produksi')
-            //     ->withProperties(['id' => $produksi->id])
-            //     ->log('User ' . auth()->user()->nama . ' add a produksi');
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($produksi)
+                ->event('tambah_produksi')
+                ->withProperties(['id' => $produksi->id])
+                ->log('User ' . auth()->user()->nama . ' tambah a produksi');
 
             DB::commit();
-            dd('done');
+            // dd('done');
             $this->resetInput();
             return redirect()->route('admin.produksi')->with('success', 'Data Berhasil Disimpan');
         } catch (\Throwable $th) {

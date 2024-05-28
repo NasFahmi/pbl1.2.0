@@ -36,7 +36,15 @@ class Produksi extends Component
     {
         // dd($idProduksi);
         $produksi = ProduksiData::findOrFail($idProduksi);
-        // Hapus produk
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($produksi)
+            ->event('delete_produksi')
+            ->withProperties(['id' => $produksi->id])
+            ->log('User ' . auth()->user()->nama . ' delete a produksi');
+
+        // Hapus produk 
         $produksi->delete();
 
         // Opsional: Tambahkan logika tambahan setelah penghapusan, seperti notifikasi atau redirect

@@ -45,7 +45,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('modal', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.modal');
     });
     Route::middleware(['role:superadmin'])->group(function () {
-        Route::get('log-activitas', App\Livewire\Admin\Product\Product::class)->name('admin.log-activitas');
+        Route::get('log-activitas', App\Livewire\Admin\LogAktivitas\LogAktivitas::class)->name('admin.log-activitas');
     });
 });
 Route::get('/test', function () {

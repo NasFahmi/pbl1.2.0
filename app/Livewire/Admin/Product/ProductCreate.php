@@ -89,6 +89,12 @@ class ProductCreate extends Component
                 ]);
             }
             $this->resetInputFields();
+            activity()
+                ->causedBy(auth()->user())
+                ->performedOn($product)
+                ->event('create_product')
+                ->withProperties(['data' => $product])
+                ->log('User ' . auth()->user()->nama . ' create a product ');
             DB::commit();
             return redirect()->route('admin.product')->with('success', 'Data Berhasil Disimpan');
             // session()->flash('message', 'Produk berhasil disimpan.');

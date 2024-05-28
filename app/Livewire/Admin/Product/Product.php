@@ -43,6 +43,12 @@ class Product extends Component
         $product->update([
             'tersedia' => '0'
         ]);
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($product)
+            ->event('delete_product')
+            ->withProperties(['product$product' => $product])
+            ->log('User ' . auth()->user()->nama . ' delete a product ');
         // Hapus produk
         $product->delete();
 
