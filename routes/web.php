@@ -39,7 +39,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('piutang', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.piutang');
     });
     Route::middleware(['role:superadmin'])->group(function () {
-        Route::get('beban-kewajiban', App\Livewire\Admin\Product\Product::class)->name('admin.beban-kewajiban');
+        Route::get('beban-kewajiban', App\Livewire\Admin\BebanKewajiban\BebanKewajiban::class)->name('admin.beban-kewajiban');
+        Route::get('beban-kewajiban/create', App\Livewire\Admin\BebanKewajiban\BebanKewajibanCreate::class)->name('admin.beban-kewajiban.create');
+        Route::get('beban-kewajiban/{id}/edit', App\Livewire\Admin\BebanKewajiban\BebanKewajibanEdit::class)->name('admin.beban-kewajiban.edit');
     });
     Route::middleware(['role:superadmin'])->group(function () {
         Route::get('modal', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.modal');

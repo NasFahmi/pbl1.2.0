@@ -3,10 +3,14 @@
 namespace App\Livewire\Admin\Produksi;
 
 use Livewire\Component;
-use App\Models\Produksi as ProduksiData;
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\DB;
+use App\Models\Produksi as ProduksiData;
 
+#[Layout('components/layouts/admin')]
+#[Title('Produksi')]
 class ProduksiEdit extends Component
 {
 
