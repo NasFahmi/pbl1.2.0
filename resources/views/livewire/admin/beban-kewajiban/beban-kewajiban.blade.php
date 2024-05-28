@@ -84,7 +84,7 @@
                                 class="px-4 py-2 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-">
                                 <th scope="row" class=" font-medium pl-3  lg:whitespace-nowrap  text-sm">
                                     <span class="text-sm">
-                                        {{ $items->jenis }}
+                                        {{ $items->jenis_beban_kewajiban->jenis_beban_kewajiban }}
                                     </span>
                                 </th>
 
@@ -172,7 +172,7 @@
 
                                             <li>
                                                 @if (auth()->check() && auth()->user()->hasRole('superadmin'))
-                                                    <button type="submit"
+                                                    <button onclick="deleteBebanKewajiban({{ $items->id }})"
                                                         class="block px-4 py-2 w-full hover:bg-red-100 bg-red-50">
                                                         <div class="flex justify-start items-center gap-2">
                                                             <div class="w-4 h-4">
@@ -215,4 +215,31 @@
             </div>
         </div>
     </div>
+    <script>
+        function deleteBebanKewajiban($id) {
+
+            Swal.fire({
+                title: "Apakah yakin ingin menghapus data Produksi ini?",
+                text: "data produksi dapat dikembalikan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Produksi berhasil dihapus",
+                        icon: "success"
+                    });
+
+                    Livewire.dispatch('deleteBebanKewajiban', {
+                        idBebanKewajiban: $id
+                    });
+                }
+            });
+
+        }
+    </script>
 </div>

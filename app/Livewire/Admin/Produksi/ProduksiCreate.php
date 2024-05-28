@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 #[Layout('components/layouts/admin')]
 #[Title('Produksi')]
 class ProduksiCreate extends Component
+
 {
     #[Validate('required', message: "Nama Produk Tidak Boleh Kosong")]
     public $produk;

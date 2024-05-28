@@ -97,7 +97,8 @@
             <div class="w-full col-span-1 p-4 bg-white rounded-lg shadow-sm h-fit md:p-6 lg:col-span-2">
                 <div class="flex justify-between">
                     <div>
-                        <h5 id="judul-chart" class="pb-2 text-xl font-semibold leading-none text-gray-900 dark:text-white">
+                        <h5 id="judul-chart"
+                            class="pb-2 text-xl font-semibold leading-none text-gray-900 dark:text-white">
                             Pendapatan 30 Hari Terakhir
 
                         </h5>
@@ -105,7 +106,8 @@
                 </div>
 
                 <div id="area-chart"></div>
-                <div class="grid items-center justify-between grid-cols-1 border-t border-gray-200 dark:border-gray-700">
+                <div
+                    class="grid items-center justify-between grid-cols-1 border-t border-gray-200 dark:border-gray-700">
                     <div class="flex items-center justify-between pt-5">
                         <!-- Button -->
                         <button id="" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom"
@@ -117,8 +119,8 @@
 
                             <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
                         <!-- Dropdown menu -->
@@ -170,7 +172,8 @@
                             @else
                                 <p class="font-medium text-gray-700">Nama : Not Available</p>
                             @endif
-                            <p class="mb-4 text-sm text-gray-500">Keterangan : {{ $preorder->transaksis->keterangan }}</p>
+                            <p class="mb-4 text-sm text-gray-500">Keterangan : {{ $preorder->transaksis->keterangan }}
+                            </p>
                             <p class="text-sm text-right">{{ $preorder->created_at }}</p>
                         </div>
                     @endforeach
@@ -186,7 +189,7 @@
                         <div class="p-4 mb-4 bg-blue-100 rounded-md">
                             <div class="flex items-center justify-start gap-4 mb-2">
                                 <div class="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full"
-                                    style="background-image: url('{{ asset( $item->fotos->first()->foto) }}')">
+                                    style="background-image: url('{{ asset($item->fotos->first()->foto) }}')">
                                 </div>
                                 <div class="">
                                     <h1 class="text-lg font-semibold text-gray-700 md:text-base lg:text-lg">
@@ -213,7 +216,8 @@
                 <div class="">
                     <div class="relative overflow-auto max-h-96 costumscroll">
                         <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
                                         Peringkat
@@ -253,16 +257,16 @@
         <script>
             function showLoginSuccessModal() {
                 var modal = document.getElementById('loginSuccessModal');
-                modal.style.display = 'flex'; 
+                modal.style.display = 'flex';
                 setTimeout(function() {
                     hideLoginSuccessModal();
-                }, 2000); 
+                }, 1000);
             }
 
             // Fungsi untuk menyembunyikan modal login berhasil
             function hideLoginSuccessModal() {
                 var modal = document.getElementById('loginSuccessModal');
-                modal.style.display = 'none'; 
+                modal.style.display = 'none';
             }
 
             // Setelah halaman selesai dimuat, tampilkan pop-up
@@ -288,7 +292,7 @@
                     document.head.appendChild(css);
                 @endif
             });
-        
+
             // let chartyear = document.getElementById('chartyear');
             // let judulchart = document.getElementById('judul-chart')
             // let pilihanchart = document.getElementById('pilihan-chart')
@@ -415,4 +419,4 @@
             // });
         </script>
         <script src="{{ asset('js/chart.js') }}"></script>
-</div>
+    </div>
