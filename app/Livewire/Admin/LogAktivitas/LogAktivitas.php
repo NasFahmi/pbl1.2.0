@@ -26,6 +26,6 @@ class LogAktivitas extends Component
             $subject = User::find($item->causer_id);
             $this->actor[] = $subject->nama;
         }
-        return view('livewire.admin.log-aktivitas.log-aktivitas');
+        return view('livewire.admin.log-aktivitas.log-aktivitas', compact('data'));
     }
 }

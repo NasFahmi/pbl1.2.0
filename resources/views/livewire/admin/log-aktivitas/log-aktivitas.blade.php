@@ -42,53 +42,58 @@
         </div>
         <div class="bg-white p-8 shadow-lg rounded-3xl max-w-screen-xl  lg:w-full">
             <div class="overflow-x-auto ">
-                <table class=" text-sm text-left table-auto w-full">
-                    <thead class="text-xs text-gray-700  bg-gray-100  ">
-                        <tr class="">
-                            <th scope="col" class="w-1/4 px-4 py-2 whitespace-nowrap">
-                                Activity
-                            </th>
-                            <th scope="col" class=" px-4 py-2 whitespace-nowrap">
-                                Actor
-                            </th>
-                            <th scope="col" class=" px-4 py-2 whitespace-nowrap">
-                                Description
-                            </th>
-                            <th scope="col" class=" px-4 py-2 whitespace-nowrap">
-                                DateTime
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for ($i = 0; $i < count($data); $i++)
-                            <tr
-                                class="px-4 py-2 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-">
-                                <th scope="row" class="font-medium pl-3 lg:whitespace-nowrap text-sm">
-                                    <span class="text-sm">
-                                        {{ $data[$i]->event }}
-                                    </span>
+                @if ($data)
+
+                    <table class=" text-sm text-left table-auto w-full">
+                        <thead class="text-xs text-gray-700  bg-gray-100  ">
+                            <tr class="">
+                                <th scope="col" class="w-1/4 px-4 py-2 whitespace-nowrap">
+                                    Activity
                                 </th>
-
-                                <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
-                                    <span>{{ $actor[$i] }}</span>
-                                </td>
-
-                                <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
-                                    <span>{{ $data[$i]->description }}</span>
-                                </td>
-
-                                <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
-                                    <span>
-                                        {{-- {{ \Carbon\Carbon::parse($data[$i]->c)->locale('ID')->isoFormat('D MMMM YYYY') }} --}}
-                                        {{ $data[$i]->created_at }}
-                                    </span>
-                                </td>
+                                <th scope="col" class=" px-4 py-2 whitespace-nowrap">
+                                    Actor
+                                </th>
+                                <th scope="col" class=" px-4 py-2 whitespace-nowrap">
+                                    Description
+                                </th>
+                                <th scope="col" class=" px-4 py-2 whitespace-nowrap">
+                                    DateTime
+                                </th>
                             </tr>
-                        @endfor
+                        </thead>
+                        <tbody>
+                            @for ($i = 0; $i < count($data); $i++)
+                                <tr
+                                    class="px-4 py-2 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-">
+                                    <th scope="row" class="font-medium pl-3 lg:whitespace-nowrap text-sm">
+                                        <span class="text-sm">
+                                            {{ $data[$i]->event }}
+                                        </span>
+                                    </th>
+
+                                    <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
+                                        <span>{{ $actor[$i] }}</span>
+                                    </td>
+
+                                    <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
+                                        <span>{{ $data[$i]->description }}</span>
+                                    </td>
+
+                                    <td cope="row" class="w-10 h-16 px-4 py-2 lg:whitespace-nowrap">
+                                        <span>
+                                            {{-- {{ \Carbon\Carbon::parse($data[$i]->c)->locale('ID')->isoFormat('D MMMM YYYY') }} --}}
+                                            {{ $data[$i]->created_at }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endfor
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-red-400 text-center">Data Masih Kosong</p>
+                @endif
                 @if ($data->lastPage() > 1)
                     <div class="mt-4 flex flex-col items-center justify-center">
                         <div class="flex items-center space-x-4">
