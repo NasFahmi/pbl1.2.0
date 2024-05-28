@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('jumlah');
             $table->bigInteger('volume');
             $table->timestamp('tanggal');
-
+            $table->softDeletes();
         });
     }
 

@@ -21,6 +21,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
     Route::middleware(['role:superadmin|admin'])->group(function () {
         Route::get('produksi', App\Livewire\Admin\Produksi\Produksi::class)->name('admin.produksi');
+        Route::get('produksi/create', App\Livewire\Admin\Produksi\ProduksiCreate::class)->name('admin.produksi.create');
+        Route::get('produksi/{id}/edit', App\Livewire\Admin\Produksi\ProduksiEdit::class)->name('admin.produksi.edit');
     });
 
     Route::middleware(['role:superadmin|admin'])->group(function () {

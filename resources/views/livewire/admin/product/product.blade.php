@@ -189,7 +189,7 @@
         function deleteProduct($id) {
             Swal.fire({
                 title: "Apakah yakin ingin menghapus Product?",
-                text: "tidak ada kata kata, yang ada hanyalah bukti nyata",
+                text: "Produk dapat dikembalikan dan diubah statusnya",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
